@@ -63,7 +63,7 @@
   <script>
     async function checkIngredients() {
       const input = document.getElementById('ingredients').value;
-      const response = await fetch("https://<your-render-url>.onrender.com/deduct-check", {
+      const response = await fetch("https://deduct-api.onrender.com/deduct-check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ingredients: input })
