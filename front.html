@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Endocrine Disruptor Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+      background: #f0f4f8;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 1em;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 1em;
+      padding: 0.8em 2em;
+      font-size: 1em;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .results {
+      margin-top: 2em;
+      background: white;
+      padding: 1em;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .result-item {
+      margin-bottom: 1em;
+    }
+    .disruptor {
+      color: red;
+      font-weight: bold;
+    }
+    .safe {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔬 Endocrine Disruptor Ingredient Checker</h1>
+  <p>Paste ingredients below (comma-separated):</p>
+  <textarea id="ingredients" placeholder="e.g., Triclosan, Water, Methylparaben"></textarea>
+  <br/>
+  <button onclick="checkIngredients()">Check</button>
+
+  <div class="results" id="results"></div>
+
+  <script>
+    async function checkIngredients() {
+      const input = document.getElementById('ingredients').value;
+      const response = await fetch("https://<your-render-url>.onrender.com/deduct-check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ingredients: input })
+      });
+
+      const data = await response.json();
+      const resultBox = document.getElementById('results');
+      resultBox.innerHTML = "<h2>Results</h2>";
+
+      data.results.forEach(item => {
+        const status = item.matched_name
+          ? `<span class="disruptor">⚠️ Endocrine Disruptor</span>`
+          : `<span class="safe">✅ Not a Disruptor</span>`;
+
+        resultBox.innerHTML += `
+          <div class="result-item">
+            <strong>${item.input}</strong>: ${status}<br/>
+            ${item.matched_name ? `CAS or PubChem: ${item.cas_or_pubchem}<br/>Evidence: ${item.literature_pmids}` : ''}
+          </div>
+        `;
+      });
+    }
+  </script>
+</body>
+</html>
