@@ -1,2 +1,2 @@
 This is a simple website to paste in your skincare ingredients and check the things which might mess with your hormones! This is a beginner level web dev project which was solely carried out by me during my leisure time.
-This website uses the DEDuCT(Database for Endocrine Disrupting Chemicals and their Toxicity profiles) database with 686 EDCs formulated by Karthikeyan et al.(https://doi.org/10.1101/619163)(https://cb.imsc.res.in/deduct/)
+This website uses the DEDuCT(Database for Endocrine Disrupting Chemicals and their Toxicity profiles) database with 686 EDCs formulated by Karthikeyan et al.(https://doi.org/10.1101/619163). To read more about EDC visit this website:  https://cb.imsc.res.in/deduct/
